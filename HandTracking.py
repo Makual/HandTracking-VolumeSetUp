@@ -52,9 +52,10 @@ while True:
         distPer = math.sqrt((lmsDct[9]['y'] - lmsDct[0]['y'])**2 + (lmsDct[9]['x'] - lmsDct[0]['x'])**2)
         distIf = math.sqrt((lmsDct[9]['y'] - lmsDct[12]['y'])**2 + (lmsDct[9]['x'] - lmsDct[12]['x'])**2)    
         
-        cv2.circle(img, (lmsDct[8]['x'],lmsDct[8]['y']), 10, (255,255,0), cv2.FILLED)
-        cv2.circle(img, (lmsDct[4]['x'],lmsDct[4]['y']), 10, (255,255,0), cv2.FILLED)
-        cv2.line(img, (lmsDct[8]['x'],lmsDct[8]['y']),(lmsDct[4]['x'],lmsDct[4]['y']), (255,255,0), 3)
+        cv2.circle(img, (lmsDct[8]['x'],lmsDct[8]['y']), 10, (0,255,0), cv2.FILLED)
+        cv2.circle(img, (lmsDct[4]['x'],lmsDct[4]['y']), 10, (0,255,0), cv2.FILLED)
+        cv2.line(img, (lmsDct[8]['x'],lmsDct[8]['y']),(lmsDct[4]['x'],lmsDct[4]['y']), (0,255,0), 3)
+        
               
         mpDraw.draw_landmarks(img, handLms,mpHands.HAND_CONNECTIONS)
 
@@ -70,18 +71,13 @@ while True:
                     vol = 100
                 if vol < 14:
                     vol = 0
-
+                cv2.putText(img, "Volume: " + str(vol),(50,50),cv2.FONT_HERSHEY_PLAIN,2,(255,255,255),1)
                 vol = np.interp(vol, [0,100], [-60,0])
                 
                 volume.SetMasterVolumeLevel(int(vol),None)
     
         
-    cTime = time.time()
-    fps = 1/(cTime-pTime)
-    pTime = cTime
-
-    cv2.putText(img, str(int(fps)), (10,70), cv2.FONT_HERSHEY_PLAIN,3,(0,255,255),3)
-    
+ 
     cv2.imshow("Image", img)
     cv2.waitKey(1)
 
